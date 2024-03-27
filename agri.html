@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture Detail System</title>
+</head>
+<body>
+    <h1>Agriculture Detail System</h1>
+    
+    <h2>Add New Crop Details</h2>
+    <form id="cropForm">
+        <label for="cropName">Crop Name:</label>
+        <input type="text" id="cropName" name="cropName" required><br><br>
+        
+        <label for="cropType">Crop Type:</label>
+        <input type="text" id="cropType" name="cropType" required><br><br>
+        
+        <label for="cropArea">Crop Area (in hectares):</label>
+        <input type="number" id="cropArea" name="cropArea" required><br><br>
+        
+        <button type="submit">Show Details</button>
+    </form>
+    
+    <h2>Existing Crop Details</h2>
+    <div id="cropList">
+        <!-- Crop details will be displayed here -->
+    </div>
+
+    <script>
+       function displayCrop(cropData) {
+    var cropList = document.getElementById("cropList");
+    cropList.innerHTML = ""; // Clear previous crop details
+
+    for (const cropKey in cropData) {
+        const cropDetails = cropData[cropKey];
+        var cropItem = document.createElement("div");
+
+        // Add image if available
+        if (cropDetails.image_url) {
+            var image = document.createElement("img");
+            image.src = cropDetails.image_url;
+            image.style.maxWidth = "100%";
+            image.style.height = "auto"; // Ensure aspect ratio is maintained
+            cropItem.appendChild(image);
+        }
+
+        cropItem.innerHTML += "<h3>" + cropKey + "</h3>";
+        for (const detailKey in cropDetails) {
+            // Skip adding image_url to details
+            if (detailKey !== "image_url") {
+                cropItem.innerHTML += "<p><strong>" + detailKey + ":</strong> " + cropDetails[detailKey] + "</p>";
+            }
+        }
+        cropList.appendChild(cropItem);
+    }
+}
+
+                  
+        document.getElementById("cropForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const data = [
+    {
+        "PADDY": {
+            "image_url":"https://th.bing.com/th/id/OIP.7mon1Q7Q4sfCttouLWnIvwHaE7?w=226&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "Soil Requirements": [
+                "Paddy grows best in fertile, well-drained soils with good water retention capacity.",
+                "Ideal soil pH ranges from 5.0 to 7.5.",
+                "Organic matter content should be high for better nutrient retention and soil structure."
+            ],
+            "Duration": "The duration of paddy cultivation varies depending on the variety and growing conditions. Typically, it ranges from 3 to 6 months from sowing to harvest.",
+            "Irrigation": [
+                "Paddy requires consistent and adequate water supply, especially during its vegetative and reproductive stages.",
+                "Irrigation methods include flooding the fields, drip irrigation, and sprinkler irrigation.",
+                "Proper water management is crucial to prevent waterlogging and optimize yields."
+            ],
+            "Benefits": [
+                "Paddy serves as a staple food for a large portion of the world's population, providing carbohydrates, vitamins, and minerals.",
+                "It contributes to food security and rural livelihoods, particularly in developing countries.",
+                "Paddy cultivation helps in soil conservation and provides employment opportunities."
+            ],
+            "Yields": [
+                "Paddy yield varies depending on factors such as variety, soil fertility, water availability, and pest management.",
+                "Yields can range from 2 to 6 tons per hectare, with some high-yielding varieties capable of achieving even higher yields under optimal conditions."
+            ],
+            "Pesticides": [
+                "Paddy is susceptible to various pests and diseases, including insects like stem borers, leaf folder, and diseases like blast and bacterial blight.",
+                "Integrated Pest Management (IPM) strategies are often employed, combining cultural, biological, and chemical control methods to minimize pesticide use while maintaining pest control effectiveness."
+            ],
+            "Harvesting": [
+                "Harvesting of paddy involves cutting the rice panicles from the plants and threshing to separate the grains from the straw.",
+                "Traditional methods involve manual cutting with sickles followed by threshing using animals or manual beating.",
+                "Mechanized harvesters are also used in modern paddy farming, which streamline the process and increase efficiency."
+            ],
+            "Marketing": [
+                "Paddy is marketed domestically and internationally through various channels including wholesale markets, cooperatives, and direct sales to consumers.",
+                "Marketing strategies may involve quality grading, packaging, and transportation to ensure the product reaches consumers in optimal condition.",
+                "Price fluctuations are common and influenced by factors such as demand-supply dynamics, government policies, and global market trends."
+            ],
+            "Social Schemes": [
+                "Governments in many countries implement social schemes to support paddy farmers, such as subsidies for seeds, fertilizers, and irrigation equipment.",
+                "Price support mechanisms, minimum support prices (MSP), and procurement programs are often initiated to ensure farmers receive remunerative prices for their produce.",
+                "Education and training programs are also conducted to disseminate best practices in paddy cultivation and improve farmers' livelihoods."
+            ]
+        }
+    },
+    {
+        "COTTON": {
+            "image_url":"https://th.bing.com/th/id/OIP.bwGXCQL1ZSLyNCogWD6LwAHaFj?w=239&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "Soil Requirements": [
+                "Cotton grows best in well-drained soils with good moisture retention capacity.",
+                "Ideal soil pH ranges from 6 to 7.5.",
+                "Sandy loam and clay loam soils are preferred for cotton cultivation."
+            ],
+            "Duration": "The duration of cotton cultivation varies depending on the variety and growing conditions. Typically, it takes around 5 to 6 months from planting to harvesting.",
+            "Irrigation": [
+                "Cotton requires regular and adequate irrigation, especially during critical growth stages such as flowering and boll development.",
+                "Drip irrigation, furrow irrigation, and sprinkler irrigation are common methods used for cotton cultivation."
+            ],
+            "Benefits": [
+                "Cotton is a valuable cash crop with various economic benefits for farmers.",
+                "It provides raw material for the textile industry, generating income and employment opportunities.",
+                "Cotton by-products such as cottonseed oil and cottonseed meal are used in food, feed, and industrial applications."
+            ],
+            "Yields": [
+                "Cotton yields vary depending on factors like variety, soil fertility, climate, and pest management practices.",
+                "Yields are usually measured in terms of lint (fiber) production per hectare or acre."
+            ],
+            "Pesticides": [
+                "Cotton is susceptible to various pests and diseases, including bollworms, aphids, whiteflies, and leafhoppers.",
+                "Pesticides such as insecticides, fungicides, and herbicides are commonly used for pest and disease management.",
+                "Integrated Pest Management (IPM) practices aim to minimize pesticide use through the use of biological control agents, cultural practices, and resistant varieties."
+            ],
+            "Harvesting": [
+                "Cotton is harvested when the bolls mature and the fibers are fully developed.",
+                "Harvesting methods include manual picking and mechanical harvesting using cotton pickers.",
+                "Once harvested, the cotton fibers are separated from the seeds through ginning."
+            ],
+            "Marketing": [
+                "Cotton is sold to ginners or directly to textile mills depending on market conditions and the preferences of the farmer.",
+                "Prices of cotton are influenced by factors such as global demand, supply, quality, and government policies."
+            ],
+            "Social Schemes": [
+                "Governments and organizations may implement various social schemes to support cotton farmers, such as subsidies, insurance schemes, and credit facilities.",
+                "Research and extension programs provide farmers with access to improved varieties, agronomic practices, and pest management techniques.",
+                "Social welfare programs may also focus on improving the living standards and socio-economic conditions of cotton-growing communities."
+            ]
+        }
+    },
+    
+    {
+        "CEREALS": {
+            "image_url":"https://th.bing.com/th/id/OIP.gMxADIoH7Zhm-yonZdGRyQHaE7?w=253&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "1. *Cereals*": "Cereals are grasses cultivated for their edible grains or seeds. They are major sources of carbohydrates, proteins, vitamins, and minerals in the human diet. Examples of cereals include wheat, rice, maize (corn), barley, oats, sorghum, and millet.",
+            "2. *Soil Requirements*": "Cereal crops generally prefer well-drained soils with good fertility. The specific soil requirements vary depending on the type of cereal. For example, rice prefers flooded or waterlogged conditions, while maize thrives in well-drained soils.",
+            "3. *Duration*": "Duration varies greatly among different cereal crops. Some cereals like wheat and barley have shorter growing seasons (around 90-120 days), while others like rice and maize may take longer (up to 150-180 days).",
+            "4. *Irrigation*": "Irrigation practices vary depending on the cereal crop and local conditions. Some cereals, like rice, require flooded conditions for optimal growth, while others, such as maize and wheat, can be grown with less water.",
+            "5. *Benefits*": "Cereals are staple foods for billions of people worldwide, providing essential nutrients and energy. They are versatile and can be processed into various food products like bread, pasta, breakfast cereals, and animal feed.",
+            "6. *Yields*": "Yields vary depending on factors such as climate, soil fertility, water availability, pest and disease pressure, and agricultural practices. Advances in breeding, technology, and agronomic practices have led to significant improvements in cereal yields over time.",
+            "7. *Pesticides*": "Pesticide use in cereal cultivation varies depending on pest and disease pressure. Common pests and diseases affecting cereals include aphids, stem borers, rusts, and fungi. Integrated Pest Management (IPM) practices aim to minimize pesticide use through the use of biological controls, cultural practices, and resistant crop varieties.",
+            "8. *Harvesting*": "Harvesting methods depend on the type of cereal and local practices. Manual harvesting with sickles or mechanized harvesting with combines are common methods. Harvest timing is crucial to ensure optimal grain quality and yield.",
+            "9. *Marketing*": "Cereal marketing involves activities such as grading, packaging, transportation, and distribution. Farmers may sell their produce directly to consumers, retailers, or processors, or through agricultural cooperatives and markets.",
+            "10. *Social Schemes*": "Governments and international organizations often implement social schemes to support cereal farmers and ensure food security. These schemes may include subsidies, price supports, crop insurance, and food aid programs aimed at vulnerable populations."
+        }
+    },
+    {
+        "🌾 WHEAT": {
+            "image_url":"https://th.bing.com/th/id/OIP.mvUCpk32fo706K1xm3WmpAHaFj?w=257&h=193&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "1. *Soil Requirements*": "Wheat grows well in well-drained loamy soils with good fertility. The soil pH should ideally be between 6.0 and 7.5 for optimal growth. Proper soil preparation, including plowing and leveling, is essential before sowing.",
+            "2. *Duration*": "The duration of wheat cultivation varies depending on the variety and environmental conditions. Generally, wheat takes around 90 to 150 days to mature from the time of sowing.",
+            "3. *Irrigation*": "Wheat requires sufficient moisture during its growth stages, particularly during germination, tillering, and grain development. Depending on the availability of rainfall and irrigation facilities, farmers may use methods like flood irrigation, sprinkler irrigation, or drip irrigation.",
+            "4. *Benefits*": "Wheat is a rich source of carbohydrates, proteins, vitamins, and minerals, making it a staple food for a large part of the world's population. It provides energy and essential nutrients for human consumption. Wheat cultivation also contributes to soil fertility through crop residue incorporation and nitrogen fixation.",
+            "5. *Yields*": "Wheat yield varies greatly depending on factors such as variety, soil fertility, climate, and agricultural practices. Yields typically range from 2 to 4 tons per hectare, but can be higher under optimal conditions and with improved agricultural techniques.",
+            "6. *Pesticides and Pest Management*": "Common pests that affect wheat include aphids, armyworms, grasshoppers, and wheat stem sawflies. Integrated Pest Management (IPM) practices, including cultural, biological, and chemical control methods, are employed to manage pest populations and minimize crop damage.",
+            "7. *Harvesting*": "Wheat is harvested when the grains are fully mature and dry. Harvesting methods include the use of combine harvesters for large-scale farming and manual harvesting with sickles or reapers for small-scale farming. Proper harvesting techniques ensure minimal grain loss and maintain grain quality.",
+            "8. *Marketing*": "After harvesting, wheat grains are typically cleaned, dried, and stored before being sold to grain markets, wholesalers, or directly to consumers. Wheat is traded internationally, and prices fluctuate based on global supply and demand dynamics, weather conditions, and other factors.",
+            "9. *Social Schemes*": "Various governments implement social welfare schemes and programs to support wheat farmers and ensure food security. These schemes may include subsidies on seeds, fertilizers, and irrigation, as well as price support mechanisms and crop insurance schemes. Additionally, efforts are made to promote sustainable farming practices and improve the livelihoods of wheat farmers through training, research, and extension services."
+        }
+    }
+]
+
+            // Retrieve form values
+            var cropName = document.getElementById("cropName").value;
+            var cropType = document.getElementById("cropType").value;
+            var cropArea = document.getElementById("cropArea").value;
+            const crops = ["paddy","cotton","cereals","wheat"]
+            // Create a new crop object
+            var crop = {
+                name: cropName,
+                type: cropType,
+                area: cropArea
+            };
+            for (let i =0;i<4;i++){
+
+                if (crops[i].toLocaleLowerCase().includes(cropName.toLocaleLowerCase())){
+                    displayCrop(data[i]);
+
+                }
+            }
+            // Display the newly added crop
+            
+            // Reset form fields
+            document.getElementById("cropForm").reset();
+        });
+
+        
+    </script>
+</body>
+</html>
